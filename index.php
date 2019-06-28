@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="src/css/style.css" type="text/css">
 </head>
 <body>
-	<?php require_once("src/php/file.php"); ?>
+	<?php require_once("src/php/gismeteoData.php"); ?>
 
 	<script src="src/js/main.js"></script>
 </body>
