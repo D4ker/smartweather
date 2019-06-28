@@ -7,7 +7,10 @@
 	<link rel="stylesheet" href="src/css/style.css" type="text/css">
 </head>
 <body>
-	<?php require_once("src/php/gismeteoData.php"); ?>
+	<?php
+	require_once("src/php/gismeteoData.php");
+	require_once("src/php/weatherData.php");
+	?>
 
 	<script src="src/js/main.js"></script>
 </body>
