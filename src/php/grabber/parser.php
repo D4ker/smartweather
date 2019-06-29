@@ -31,4 +31,16 @@ function parse($htmlText, $startTag, $endTag) {
 	}
 	return array($values, 0);
 }
+
+function getData($siteHtml, $dataInfo, $dataTypeName) {
+	$dataTags = $dataInfo['data_with_tags'];
+	$dataWithTags = parseWithTags($siteHtml, $dataTags['start'], $dataTags['end']);
+	$valuesTags = $dataInfo[$dataTypeName];
+	$values = parse($dataWithTags, $valuesTags['start'], $valuesTags['end']);
+	if ($values[1] == 1) {
+		echo 'Failed to get data<br>';
+		exit();
+	}
+	return $values[0]; // Данные
+}
 ?>

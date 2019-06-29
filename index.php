@@ -8,8 +8,7 @@
 </head>
 <body>
 	<?php
-	require_once("src/php/gismeteoData.php");
-	require_once("src/php/weatherData.php");
+	require_once("src/php/fileConnector.php");
 	?>
 
 	<script src="src/js/main.js"></script>
