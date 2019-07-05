@@ -25,7 +25,7 @@ function parse($htmlText, $startTag, $endTag) {
 		if ($endPosition === false) {
 			return array($values, 1); // [arrayOfValues, isError]
 		}
-		$values[] = strip_tags(substr($cutHtmlText, 0, $endPosition));
+		$values[] = trim(strip_tags(substr($cutHtmlText, 0, $endPosition)));
 		$cutHtmlText = substr($cutHtmlText, $endPosition);
 		$startPosition = strpos($cutHtmlText, $startTag);
 	}

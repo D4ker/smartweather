@@ -9,6 +9,51 @@ function printData($arrayOfData) {
 	echo '<br>';
 }
 
+function arrayIndexOf($array, $element) {
+	$i = 0;
+	foreach ($array as $value) {
+		if ($value == $element) {
+			return $i;
+		}
+		$i++;
+	}
+	return -1;
+}
+
+function refactorArrays($arraysOfValues) {
+	$stringArrayOfWindDirection = array (
+		'С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'З', 'СЗ'
+	);
+
+	for ($i = 0; $i < count($arraysOfValues[0]); $i++) {
+		$stringTempValue = $arraysOfValues[0][$i];
+		if ($stringTempValue[0] == '+') {
+			$stringTempValue = substr($stringTempValue, 1);
+		}
+		$arraysOfValues[0][$i] = (int)($stringTempValue); // Температура
+		$arraysOfValues[1][$i] = (int)($arraysOfValues[1][$i]); // Ветер
+		$arraysOfValues[2][$i] = arrayIndexOf($stringArrayOfWindDirection, $arraysOfValues[2][$i]); // Направление ветра
+		$arraysOfValues[3][$i] = (int)($arraysOfValues[3][$i]); // Влажность
+	}
+
+	return $arraysOfValues;
+}
+
+function getGismeteoData() {
+	global $siteInfo;
+	$context = getContext();
+	$siteHtml = file_get_contents($siteInfo['url'], false, $context);
+
+	$arraysOfValues = array(
+		getData($siteHtml, $siteInfo['temp'], 'values'), // Температура
+		getData($siteHtml, $siteInfo['wind'], 'values'), // Ветер
+		getData($siteHtml, $siteInfo['wind'], 'directions'), // Направление ветра
+		getData($siteHtml, $siteInfo['humidity'], 'values') // Влажность
+	);
+
+	return refactorArrays($arraysOfValues);
+}
+
 echo 'Hello World!<br>';
 echo 'Server date is ';
 echo date('d.m.Y') . '<br>';

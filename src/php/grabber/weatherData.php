@@ -5,6 +5,7 @@ require_once('userAgentHeaderReplacing.php');
 function parseValuesToArrays($values) {
 	$i = 0;
 	$j = 0;
+	// Температура, ощущается, осадки, влажность, ветер
 	$arrays = array(
 		array(),
 		array(),
@@ -22,6 +23,15 @@ function parseValuesToArrays($values) {
 		}
 	}
 	return $arrays;
+}
+
+function getArraysOfData() {
+	$context = getContext();
+	$siteHtml = file_get_contents($siteInfo['url'], false, $context);
+
+	$arraysOfValues = parseValuesToArrays(getData($siteHtml, $siteInfo['data'], 'values'));
+	$arraysOfData = cleanArrays($arraysOfValues);
+	return $arraysOfData;
 }
 
 echo '<br>Weather temperature:<br>';
