@@ -1,6 +1,6 @@
 <?php
-require_once("parser.php");
-require_once("userAgentHeaderReplacing.php");
+require_once('parser.php');
+require_once('userAgentHeaderReplacing.php');
 
 function printData($arrayOfData) {
 	foreach ($arrayOfData as $value) {
@@ -10,8 +10,10 @@ function printData($arrayOfData) {
 }
 
 echo 'Hello World!<br>';
-echo "Current date is ";
+echo 'Server date is ';
 echo date('d.m.Y') . '<br>';
+echo 'Server time is ';
+echo date('H:i:s') . '<br>';
 echo 'Gismeteo temperature:<br>';
 
 $siteInfo = array(

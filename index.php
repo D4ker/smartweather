@@ -8,7 +8,7 @@
 </head>
 <body>
 	<?php
-	require_once("src/php/fileConnector.php");
+	require_once('src/php/fileConnector.php');
 	?>
 
 	<script src="src/js/main.js"></script>

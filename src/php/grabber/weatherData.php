@@ -1,6 +1,6 @@
 <?php
-require_once("parser.php");
-require_once("userAgentHeaderReplacing.php");
+require_once('parser.php');
+require_once('userAgentHeaderReplacing.php');
 
 function parseValuesToArrays($values) {
 	$i = 0;
