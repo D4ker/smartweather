@@ -37,14 +37,12 @@ WeatherData::printData($weatherData[1]);
 WeatherData::printData($weatherData[2]);
 WeatherData::printData($weatherData[3]);
 
-/*
-$tableName = 'gismeteo_today_data';
+$tableName = 'weather_today_data';
 ApiDB::deleteOldData($connection, $tableName, $cityID);
-for ($time = 0, $i = 0; $time < 24; $time += 3, $i++) {
+for ($time = (int)($currentTime), $i = 0; $time <= count($weatherData[0]); $time++, $i++) {
 	// $cityID, $time, $temperature, $windValue, $windDirection, $humidity
-	ApiDB::updateDataInTable($connection, $tableName, $cityID, $time, $gismeteoData[0][$i], $gismeteoData[1][$i], $gismeteoData[2][$i], $gismeteoData[3][$i]);
+	ApiDB::updateDataInTable($connection, $tableName, $cityID, $time, $weatherData[0][$i], $weatherData[1][$i], $weatherData[2][$i], $weatherData[3][$i]);
 }
-*/
 
 ApiDB::closeConnection($connection);
 ?>
