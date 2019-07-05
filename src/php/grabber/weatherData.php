@@ -26,14 +26,10 @@ class WeatherData extends SiteData {
 		$j = 0;
 		// Температура, ощущается, осадки, влажность, ветер
 		$arrays = array(
-			array(),
-			array(),
-			array(),
-			array(),
-			array()
+			array(), array(), array(), array(), array()
 		);
 		foreach ($values as $value) {
-			$arrays[$i][$j] = $value;
+			$arrays[$i][$j] = trim($value);
 			if ($i < 4) {
 				$i++;
 			} else {
@@ -45,34 +41,34 @@ class WeatherData extends SiteData {
 	}
 
 	private function refactorArrays($arraysOfValues) {
-		$stringArrayOfWindDirection = array (
-			'С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'З', 'СЗ'
+		$stringArrayOfWindDirection = array(
+			'С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ'
+		);
+
+		// Температура, ветер, направление ветра, влажность
+		$refactorArrays = array(
+			array(), array(), array(), array()
 		);
 
 		for ($i = 0; $i < count($arraysOfValues[0]); $i++) {
-			$stringTempValue = $arraysOfValues[0][$i];
-			if ($stringTempValue[0] == '+') {
-				$stringTempValue = substr($stringTempValue, 1);
-			}
-			$arraysOfValues[0][$i] = (int)($stringTempValue); // Температура
-			$arraysOfValues[1][$i] = (int)($arraysOfValues[1][$i]); // Ветер
-			$arraysOfValues[2][$i] = parent::arrayIndexOf($stringArrayOfWindDirection, $arraysOfValues[2][$i]); // Направление ветра; indexOf from gismeteoData
-			$arraysOfValues[3][$i] = (int)($arraysOfValues[3][$i]); // Влажность
+			$refactorArrays[0][] = (int)($arraysOfValues[0][$i]); // Температура
+
+			$windDirectionValue = explode(' ', $arraysOfValues[4][$i]);
+			$refactorArrays[1][] = (int)((int)($windDirectionValue[1]) / 3.6 + 0.5); // Ветер
+
+			$refactorArrays[2][] = parent::arrayIndexOf($stringArrayOfWindDirection, $windDirectionValue[0]); // Направление ветра
+
+			$refactorArrays[3][] = (int)($arraysOfValues[3][$i]); // Влажность
 		}
 
-		return $arraysOfValues;
+		return $refactorArrays;
 	}
 
 	public static function getData() {
 		$context = parent::getContext();
 		$siteHtml = file_get_contents(self::$siteInfo['url'], false, $context);
 
-		$arraysOfValues = array(
-			Parser::getData($siteHtml, self::$siteInfo['temp'], 'values'), // Температура
-			Parser::getData($siteHtml, self::$siteInfo['wind'], 'values'), // Ветер
-			Parser::getData($siteHtml, self::$siteInfo['wind'], 'directions'), // Направление ветра
-			Parser::getData($siteHtml, self::$siteInfo['humidity'], 'values') // Влажность
-		);
+		$arraysOfValues = self::parseValuesToArrays(Parser::getData($siteHtml, self::$siteInfo['data'], 'values'));
 
 		return self::refactorArrays($arraysOfValues);
 	}

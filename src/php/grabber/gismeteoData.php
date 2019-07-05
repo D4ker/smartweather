@@ -42,22 +42,26 @@ class GismeteoData extends SiteData {
 	);
 
 	private function refactorArrays($arraysOfValues) {
-		$stringArrayOfWindDirection = array (
-			'С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'З', 'СЗ'
+		$stringArrayOfWindDirection = array(
+			'С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ'
+		);
+
+		// Температура, ветер, направление ветра, влажность
+		$refactorArrays = array(
+			array(), array(), array(), array()
 		);
 
 		for ($i = 0; $i < count($arraysOfValues[0]); $i++) {
-			$stringTempValue = $arraysOfValues[0][$i];
-			if ($stringTempValue[0] == '+') {
-				$stringTempValue = substr($stringTempValue, 1);
-			}
-			$arraysOfValues[0][$i] = (int)($stringTempValue); // Температура
-			$arraysOfValues[1][$i] = (int)($arraysOfValues[1][$i]); // Ветер
-			$arraysOfValues[2][$i] = parent::arrayIndexOf($stringArrayOfWindDirection, $arraysOfValues[2][$i]); // Направление ветра
-			$arraysOfValues[3][$i] = (int)($arraysOfValues[3][$i]); // Влажность
+			$refactorArrays[0][] = (int)($arraysOfValues[0][$i]); // Температура
+
+			$refactorArrays[1][] = (int)($arraysOfValues[1][$i]); // Ветер
+
+			$refactorArrays[2][] = parent::arrayIndexOf($stringArrayOfWindDirection, $arraysOfValues[2][$i]); // Направление ветра
+
+			$refactorArrays[3][] = (int)($arraysOfValues[3][$i]); // Влажность
 		}
 
-		return $arraysOfValues;
+		return $refactorArrays;
 	}
 
 	public static function getData() {
