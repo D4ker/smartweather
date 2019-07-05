@@ -13,7 +13,11 @@ function closeConnection($connection) {
 	mysqli_close($connection);
 }
 
-function addDataToTable($connection, $tableName, $cityID, $time, $temperature, $windValue, $windDirection, $humidity) {
+function deleteOldData($connection, $tableName, $cityID) {
+	mysqli_query($connection, "DELETE FROM `" . $tableName . "` WHERE `city_id` = " . $cityID);
+}
+
+function updateDataInTable($connection, $tableName, $cityID, $time, $temperature, $windValue, $windDirection, $humidity) {
 	$result = mysqli_query($connection, "INSERT INTO `" . $tableName . "` (`city_id`, `time`, `temperature`, `wind_value`, `wind_direction`, `humidity`) VALUES (" . $cityID . ", " . $time . ", " . $temperature . ", " . $windValue . ", " . $windDirection . ", " . $humidity . ")");
 	if ($result == false) {
 		echo 'Failed to add data to the table!<br>';
