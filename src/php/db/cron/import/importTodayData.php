@@ -11,6 +11,7 @@ $connection = ApiDB::connectTo('grabber_db');
 
 $cityInfo = ApiDB::getCityInfo($connection, $cityName);
 
+// Пока что не используется, так как пока что реализация только для одного города
 $timeZone = $cityInfo['time_zone'];
 $shiftTime = time() + ($timeZone * 60 * 60);
 $currentTime = date('H:i:s', $shiftTime);
@@ -28,11 +29,9 @@ GismeteoData::printData($gismeteoData[3]);
 */
 
 $tableName = 'gismeteo_today_data';
-ApiDB::deleteOldData($connection, $tableName, $cityID);
-for ($time = 0, $i = 0; $time < 24; $time += 3, $i++) {
-	// $cityID, $time, $temperature, $windValue, $windDirection, $humidity
-	ApiDB::updateDataInTable($connection, $tableName, $cityID, $time, $gismeteoData[0][$i], $gismeteoData[1][$i], $gismeteoData[2][$i], $gismeteoData[3][$i]);
-}
+$gismeteoTime = array(0, 3, 6, 9, 12, 15, 18, 21);
+// $cityID, $time, $temperature, $windValue, $windDirection, $humidity
+ApiDB::updateDataInTable($connection, $tableName, $cityID, $gismeteoTime, $gismeteoData[0], $gismeteoData[1], $gismeteoData[2], $gismeteoData[3]);
 
 // Weather
 $weatherData = WeatherData::getData();
@@ -45,11 +44,7 @@ WeatherData::printData($weatherData[4]);
 */
 
 $tableName = 'weather_today_data';
-ApiDB::deleteOldData($connection, $tableName, $cityID);
-for ($i = 0; $i < count($weatherData[0]); $i++) {
-	// $cityID, $time, $temperature, $windValue, $windDirection, $humidity
-	ApiDB::updateDataInTable($connection, $tableName, $cityID, $weatherData[0][$i], $weatherData[1][$i], $weatherData[2][$i], $weatherData[3][$i], $weatherData[4][$i]);
-}
+ApiDB::updateDataInTable($connection, $tableName, $cityID, $weatherData[0], $weatherData[1], $weatherData[2], $weatherData[3], $weatherData[4]);
 
 ApiDB::closeConnection($connection);
 ?>
