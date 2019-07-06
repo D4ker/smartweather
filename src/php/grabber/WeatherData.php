@@ -40,25 +40,27 @@ class WeatherData extends SiteData {
 		return $arrays;
 	}
 
-	private function refactorArrays($arraysOfValues) {
+	private function refactorArrays($arrayOfTimes, $arraysOfValues) {
 		$stringArrayOfWindDirection = array(
 			'С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ'
 		);
 
 		// Температура, ветер, направление ветра, влажность
 		$refactorArrays = array(
-			array(), array(), array(), array()
+			array(), array(), array(), array(), array()
 		);
 
 		for ($i = 0; $i < count($arraysOfValues[0]); $i++) {
-			$refactorArrays[0][] = (int)($arraysOfValues[0][$i]); // Температура
+			$refactorArrays[0][] = (int)($arrayOfTimes[$i]); // Время (в часах)
+
+			$refactorArrays[1][] = (int)($arraysOfValues[0][$i]); // Температура
 
 			$windDirectionValue = explode(' ', $arraysOfValues[4][$i]);
-			$refactorArrays[1][] = (int)((int)($windDirectionValue[1]) / 3.6 + 0.5); // Ветер
+			$refactorArrays[2][] = (int)((int)($windDirectionValue[1]) / 3.6 + 0.5); // Ветер
 
-			$refactorArrays[2][] = parent::arrayIndexOf($stringArrayOfWindDirection, $windDirectionValue[0]); // Направление ветра
+			$refactorArrays[3][] = parent::arrayIndexOf($stringArrayOfWindDirection, $windDirectionValue[0]); // Направление ветра
 
-			$refactorArrays[3][] = (int)($arraysOfValues[3][$i]); // Влажность
+			$refactorArrays[4][] = (int)($arraysOfValues[3][$i]); // Влажность
 		}
 
 		return $refactorArrays;
@@ -68,9 +70,11 @@ class WeatherData extends SiteData {
 		$context = parent::getContext();
 		$siteHtml = file_get_contents(self::$siteInfo['url'], false, $context);
 
+		$arrayOfTimes = Parser::getData($siteHtml, self::$siteInfo['data'], 'time'); // Время
+
 		$arraysOfValues = self::parseValuesToArrays(Parser::getData($siteHtml, self::$siteInfo['data'], 'values'));
 
-		return self::refactorArrays($arraysOfValues);
+		return self::refactorArrays($arrayOfTimes, $arraysOfValues);
 	}
 
 	public static function main() {
