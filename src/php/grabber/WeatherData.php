@@ -42,7 +42,7 @@ class WeatherData extends SiteData {
 
 	private function refactorArrays($arrayOfTimes, $arraysOfValues) {
 		$stringArrayOfWindDirection = array(
-			'С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ'
+			'С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ', 'Штиль'
 		);
 
 		// Температура, ветер, направление ветра, влажность
@@ -56,7 +56,12 @@ class WeatherData extends SiteData {
 			$refactorArrays[1][] = (int)($arraysOfValues[0][$i]); // Температура
 
 			$windDirectionValue = explode(' ', $arraysOfValues[4][$i]);
-			$refactorArrays[2][] = (int)((int)($windDirectionValue[1]) / 3.6 + 0.5); // Ветер
+			if (count($windDirectionValue) == 1) {
+				$refactorArrays[2][] = 0; // Ветер == Штиль
+			} else {
+				// (int)((int)($windDirectionValue[1]) / 3.6 + 0.5); м/с
+				$refactorArrays[2][] = (int)($windDirectionValue[1]); // Ветер
+			}
 
 			$refactorArrays[3][] = parent::arrayIndexOf($stringArrayOfWindDirection, $windDirectionValue[0]); // Направление ветра
 
