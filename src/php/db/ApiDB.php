@@ -18,10 +18,10 @@ class ApiDB {
 		mysqli_query($connection, "DELETE FROM `" . $tableName . "` WHERE `city_id` = " . $cityID);
 	}
 
-	public static function addDataInTable($connection, $tableName, $cityID, $time, $temperature, $windValue, $windDirection, $humidity) {
+	public static function addRecordInTable($connection, $tableName, $cityID, $time, $temperature, $windValue, $windDirection, $humidity) {
 		$result = mysqli_query($connection, "INSERT INTO `" . $tableName . "` (`city_id`, `time`, `temperature`, `wind_value`, `wind_direction`, `humidity`) VALUES (" . $cityID . ", " . $time . ", " . $temperature . ", " . $windValue . ", " . $windDirection . ", " . $humidity . ")");
 		if ($result == false) {
-			echo 'Failed to add data to the table!<br>';
+			echo 'Failed to add record to the table!<br>';
 			exit();
 		}
 	}
@@ -40,7 +40,7 @@ class ApiDB {
 		self::deleteOldData($connection, $tableName, $cityID);
 		for ($i = 0; $i < count($time); $i++) {
 			// $cityID, $time, $temperature, $windValue, $windDirection, $humidity
-			self::addDataInTable($connection, $tableName, $cityID, $time[$i], $temperature[$i], $windValue[$i], $windDirection[$i], $humidity[$i]);
+			self::addRecordInTable($connection, $tableName, $cityID, $time[$i], $temperature[$i], $windValue[$i], $windDirection[$i], $humidity[$i]);
 		}
 	}
 }
