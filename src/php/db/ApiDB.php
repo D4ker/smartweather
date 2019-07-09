@@ -43,5 +43,22 @@ class ApiDB {
 			self::addRecordInTable($connection, $tableName, $cityID, $time[$i], $temperature[$i], $windValue[$i], $windDirection[$i], $humidity[$i]);
 		}
 	}
+
+	public static function getDataFromTable($connection, $tableName, $cityID) {
+		$result = mysqli_query($connection, "SELECT * FROM `" . $tableName . "` WHERE `city_id` = " . $cityID);
+		$data = array();
+		while (($record = mysqli_fetch_assoc($result)) == true) {
+			$data[] = $record;
+		}
+		return $data;
+	}
+
+	public static function cutDataToAnotherTable($connection, $cutTableName, $insertTableName, $cityID) {
+		$data = self::getDataFromTable($connection, $cutTableName, $cityID);
+		self::deleteOldData($connection, $cutTableName, $cityID);
+		for ($i = 0; $i < count($data); $i++) {
+			self::addRecordInTable($connection, $insertTableName, $cityID, $data[$i][1], $data[$i][2], $data[$i][3], $data[$i][4], $data[$i][5]);
+		}
+	}
 }
 ?>
