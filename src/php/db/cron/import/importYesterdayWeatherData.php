@@ -20,16 +20,9 @@ $cityID = $cityInfo['id'];
 
 // Weather
 $weatherData = WeatherData::getData();
-/* Отладка
-WeatherData::printData($weatherData[0]);
-WeatherData::printData($weatherData[1]);
-WeatherData::printData($weatherData[2]);
-WeatherData::printData($weatherData[3]);
-WeatherData::printData($weatherData[4]);
-*/
 
-$tableName = 'weather_yesterday_data';
-ApiDB::updateDataInTable($connection, $tableName, $cityID, $weatherData[0], $weatherData[1], $weatherData[2], $weatherData[3], $weatherData[4]);
+$tableName = 'temp_weather_yesterday_data';
+ApiDB::addRecordInTable($connection, $tableName, $cityID, $weatherData[0][0], $weatherData[1][0], $weatherData[2][0], $weatherData[3][0], $weatherData[4][0]);
 
 ApiDB::closeConnection($connection);
 ?>
