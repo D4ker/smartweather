@@ -57,7 +57,15 @@ class ApiDB {
 		$data = self::getDataFromTable($connection, $cutTableName, $cityID);
 		self::deleteOldData($connection, $cutTableName, $cityID);
 		for ($i = 0; $i < count($data); $i++) {
-			self::addRecordInTable($connection, $insertTableName, $cityID, $data[$i][1], $data[$i][2], $data[$i][3], $data[$i][4], $data[$i][5]);
+			self::addRecordInTable($connection, $insertTableName, $cityID, $data[$i]['time'], $data[$i]['temperature'], $data[$i]['wind_value'], $data[$i]['wind_direction'], $data[$i]['humidity']);
+		}
+	}
+
+	public static function createAccount($connection, $login, $password) {
+		$result = mysqli_query($connection, "INSERT INTO `accounts` (`login`, `password`) VALUES ('" . $login . "', '" . $password . "')");
+		if ($result == false) {
+			echo 'Failed to create account!<br>';
+			exit();
 		}
 	}
 }
