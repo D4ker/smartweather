@@ -8,8 +8,44 @@
 </head>
 <body>
 	<?php
-	require_once('src/php/fileConnector.php');
+	// require_once('src/php/fileConnector.php');
 	?>
+	
+	<div class="container-header">
+		<div class="container-title">
+			<a class="title-field" href="">Smart Weather</a>
+		</div>
+		<div class="container-panel">
+			<a class="panel-button" href="">Вход/Регистрация</a>
+		</div>
+	</div>
+	<div class="container">
+		<div class="container-left">
+			
+		</div>
+		<div class="container-center">
+			<div>
+				<input class="day-button" type="button" value="Вчера" onclick="">
+				<input class="day-button" type="button" value="Сегодня" onclick="">
+			</div>
+			<div>
+				
+			</div>
+			<div>
+				
+			</div>
+			<div>
+				
+			</div>
+			<div>
+				
+			</div>
+		</div>
+		<div class="container-right">
+			<input class="site-button" type="button" value="Gismeteo.com" onclick="">
+			<input class="site-button" type="button" value="Weather.com" onclick="">
+		</div>
+	</div>
 
 	<script src="src/js/main.js"></script>
 </body>
