@@ -16,7 +16,9 @@ body {
 	width: 350px;
 	height: 500px;
 	overflow-x: hidden;
-	background-color: #182134;
+	border: 4px solid #3A79EE;
+	background-color: #32457E;
+	border-radius: 10px;
 }
 
 .container-center {
@@ -24,16 +26,20 @@ body {
 	width: 400px;
 	height: 500px;
 	overflow-x: hidden;
-	background-color: #232754;
+	border: 4px solid #226E75;
+	background-color: #22315F;
+	border-radius: 20px;
 }
 
 .container-right {
 	display: inline-block;
 	width: 350px;
 	height: 500px;
-	background-color: #182134;
+	border: 4px solid #3A79EE;
+	background-color: #32457E;
 	overflow-x: hidden;
 	overflow-y: auto;
+	border-radius: 10px;
 }
 
 .site-button {
@@ -137,4 +143,11 @@ body {
 	border-radius: 10px;
 	box-shadow: 0 0 40px 40px #F137A6 inset, 0 0 0 0 #F137A6;
 	transition: 150ms ease-in-out;
+}
+
+.weather-data {
+	width: 85px;
+	height: 70px;
+	font-size: 20px;
+	color: #fff;
 }

@@ -8,9 +8,9 @@
 </head>
 <body>
 	<?php
-	// require_once('src/php/fileConnector.php');
+	require_once('src/php/fileConnector.php');
 	?>
-	
+
 	<div class="container-header">
 		<div class="container-title">
 			<a class="title-field" href="">Smart Weather</a>
@@ -24,21 +24,12 @@
 			
 		</div>
 		<div class="container-center">
-			<div>
+			<div class="day-menu">
 				<input class="day-button" type="button" value="Вчера" onclick="">
 				<input class="day-button" type="button" value="Сегодня" onclick="">
 			</div>
-			<div>
-				
-			</div>
-			<div>
-				
-			</div>
-			<div>
-				
-			</div>
-			<div>
-				
+			<div class="weather-data">
+				<p id="weather-data-text">time</p>
 			</div>
 		</div>
 		<div class="container-right">
@@ -48,5 +39,10 @@
 	</div>
 
 	<script src="src/js/main.js"></script>
+
+	<script>
+		init(<?php echo $json; ?>);
+	</script>
+
 </body>
 </html>
