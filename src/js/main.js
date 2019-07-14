@@ -33,9 +33,11 @@ function getDataWithTags(data) {
 	];
 	dataWithTags = '';
 	for (i = 0; i < data.length; i++) {
-		dataWithTags += '<p>' + data[i]['time'] + ' ' + data[i]['temperature'] + ' ' + 
-		data[i]['wind_value'] + ' ' + stringArrayOfWindDirection[data[i]['wind_direction']] + ' ' + 
-		data[i]['humidity'] + '</p>';
+		dataWithTags += '<div><div class="weather-data-text">' + data[i]['time'] + 
+		'</div><div class="weather-data-text">' + data[i]['temperature'] + 
+		'</div><div class="weather-data-text">' + data[i]['wind_value'] + 
+		'</div><div class="weather-data-text">' + stringArrayOfWindDirection[data[i]['wind_direction']] + 
+		'</div><div class="weather-data-text">' + data[i]['humidity'] + '</div>';
 	}
 	return dataWithTags;
 };
@@ -45,7 +47,6 @@ function setContent(dataWithTags) {
 };
 
 function updateData(data) {
-	console.log(143323);
 	console.log(data);
 	gismeteoTodayData = getDataWithTags(data['gismeteo_today_data']);
 	gismeteoYesterdayData = getDataWithTags(data['gismeteo_yesterday_data']);
