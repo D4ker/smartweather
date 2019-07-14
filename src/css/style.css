@@ -145,9 +145,10 @@ body {
 	transition: 150ms ease-in-out;
 }
 
-.weather-data {
-	width: 85px;
+div#weather-data {
+	width: 380px;
 	height: 70px;
 	font-size: 20px;
 	color: #fff;
+	margin: 0px auto;
 }

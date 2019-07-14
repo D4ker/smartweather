@@ -25,23 +25,23 @@
 		</div>
 		<div class="container-center">
 			<div class="day-menu">
-				<input class="day-button" type="button" value="Вчера" onclick="">
-				<input class="day-button" type="button" value="Сегодня" onclick="">
+				<input class="day-button" type="button" value="Вчера" onclick="printData(-1)">
+				<input class="day-button" type="button" value="Сегодня" onclick="printData(0)">
 			</div>
-			<div class="weather-data">
-				<p id="weather-data-text">time</p>
+			<div id="weather-data">
+
 			</div>
 		</div>
 		<div class="container-right">
-			<input class="site-button" type="button" value="Gismeteo.com" onclick="">
-			<input class="site-button" type="button" value="Weather.com" onclick="">
+			<input class="site-button" type="button" value="Gismeteo.com" onclick="setSite('gismeteo')">
+			<input class="site-button" type="button" value="Weather.com" onclick="setSite('weather')">
 		</div>
 	</div>
 
 	<script src="src/js/main.js"></script>
 
 	<script>
-		init(<?php echo $json; ?>);
+		updateData(<?php echo $json; ?>);
 	</script>
 
 </body>
