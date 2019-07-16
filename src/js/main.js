@@ -34,7 +34,7 @@ function getDataWithTags(data) {
 	dataWithTags = '';
 	for (i = 0; i < data.length; i++) {
 		dataWithTags += '<tr><td class="time">' + data[i]['time'] + 
-		'</td><td class="temperature">' + data[i]['temperature'] + 
+		':00</td><td class="temperature">' + data[i]['temperature'] + 
 		'</td><td class="wind-value">' + data[i]['wind_value'] + 
 		'</td><td class="wind-direction">' + stringArrayOfWindDirection[data[i]['wind_direction']] + 
 		'</td><td class="humidity">' + data[i]['humidity'] + '</td></tr>';

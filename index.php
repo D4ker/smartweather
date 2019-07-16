@@ -30,7 +30,7 @@
 			</div>
 			<div id="weather-data">
 				<table>
-					<thead>
+					<thead id="data-head">
 						<tr>
 							<th class="time-head">Время</th>
 							<th class="temperature-head">Tемпература,&nbsp;°C</th>
@@ -40,7 +40,7 @@
 						</tr>
 					</thead>
 					<tbody id="data">
-						
+
 					</tbody>
 				</table>
 			</div>
