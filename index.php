@@ -29,7 +29,20 @@
 				<input class="day-button" type="button" value="Сегодня" onclick="printData(0)">
 			</div>
 			<div id="weather-data">
-
+				<table>
+					<thead>
+						<tr>
+							<th class="time-head">Время</th>
+							<th class="temperature-head">Tемпература,&nbsp;°C</th>
+							<th class="wind-value-head">Ветер, м/с</th>
+							<th class="wind-direction-head">Направление ветра,</th>
+							<th class="humidity-head">Влажность</th>
+						</tr>
+					</thead>
+					<tbody id="data">
+						
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<div class="container-right">

@@ -33,17 +33,17 @@ function getDataWithTags(data) {
 	];
 	dataWithTags = '';
 	for (i = 0; i < data.length; i++) {
-		dataWithTags += '<div><div class="weather-data-text">' + data[i]['time'] + 
-		'</div><div class="weather-data-text">' + data[i]['temperature'] + 
-		'</div><div class="weather-data-text">' + data[i]['wind_value'] + 
-		'</div><div class="weather-data-text">' + stringArrayOfWindDirection[data[i]['wind_direction']] + 
-		'</div><div class="weather-data-text">' + data[i]['humidity'] + '</div>';
+		dataWithTags += '<tr><td class="time">' + data[i]['time'] + 
+		'</td><td class="temperature">' + data[i]['temperature'] + 
+		'</td><td class="wind-value">' + data[i]['wind_value'] + 
+		'</td><td class="wind-direction">' + stringArrayOfWindDirection[data[i]['wind_direction']] + 
+		'</td><td class="humidity">' + data[i]['humidity'] + '</td></tr>';
 	}
 	return dataWithTags;
 };
 
 function setContent(dataWithTags) {
-	document.getElementById('weather-data').innerHTML = dataWithTags;
+	document.getElementById('data').innerHTML = dataWithTags;
 };
 
 function updateData(data) {

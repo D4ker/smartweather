@@ -145,8 +145,8 @@ body {
 	transition: 150ms ease-in-out;
 }
 
-.weather-data-text {
-	font-size: 20px;
+div#weather-data {
+	font-size: 12px;
 	color: #fff;
 	margin: 0px auto;
 	display: inline-block;
