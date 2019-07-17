@@ -16,7 +16,7 @@
 			<a class="title-field" href="">Smart Weather</a>
 		</div>
 		<div class="container-panel">
-			<a class="panel-button" href="">Вход/Регистрация</a>
+			<a class="panel-button" href="/src/php/pages/signInUp.php">Вход/Регистрация</a>
 		</div>
 	</div>
 	<div class="container">
@@ -35,8 +35,8 @@
 							<th class="time-head">Время</th>
 							<th class="temperature-head">Tемпература,&nbsp;°C</th>
 							<th class="wind-value-head">Ветер, м/с</th>
-							<th class="wind-direction-head">Направление ветра,</th>
-							<th class="humidity-head">Влажность</th>
+							<th class="wind-direction-head">Направление ветра</th>
+							<th class="humidity-head">Влажность, %</th>
 						</tr>
 					</thead>
 					<tbody id="data">
