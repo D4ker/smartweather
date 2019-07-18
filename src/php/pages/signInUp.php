@@ -8,12 +8,12 @@
 </head>
 <body>
 	<?php
-	require_once(__DIR__ . '/../training/accounts/createAccount.php');
+	require_once(__DIR__ . '/../training/accounts/loginCreateAccount.php');
 	?>
 
 	<div class="container">
 		<div class="sign-in">
-			<form action="/src/php/pages/signInUp.php" name="d" method="POST">
+			<form action="/src/php/pages/signInUp.php" method="POST">
 				<h2>Вход</h2>
 				<input type="text" name="login-in" placeholder="Введите логин" value="<?php echo @$data['login-in']; ?>">
 				<input type="password" name="password" placeholder="Введите пароль">
@@ -21,7 +21,7 @@
 			</form>
 		</div>
 		<div class="sign-up">
-			<form action="/src/php/pages/signInUp.php" name="g" method="POST">
+			<form action="/src/php/pages/signInUp.php" method="POST">
 				<h2>Регистрация</h2>
 				<input type="text" name="login-up" placeholder="Введите логин" value="<?php echo @$data['login-up']; ?>">
 				<input type="password" name="password" placeholder="Введите пароль">

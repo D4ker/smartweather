@@ -7,12 +7,21 @@ $errors = array();
 $password = $data['password'];
 if (isset($data['sign-in'])) {
 	$login = $data['login-in'];
-	if ($login != 'admin' or $password != 'admin') {
-		$errors[] = 'Логин или пароль введены неверно';
+	if ($login == '') {
+		$errors[] = 'Введите логин';
+	}
+
+	if ($password == '') {
+		$errors[] = 'Введите пароль';
 	}
 
 	if (empty($errors)) {
-
+		$checkAuthorization = ApiDB::authorization($login, $password);
+		if ($checkAuthorization != false) {
+			echo '<div style="color: green;">Авторизация прошла успешно</div><hr>';
+		} else {
+			echo '<div style="color: red;">Логин или пароль введены неверно</div><hr>';
+		}
 	} else {
 		echo '<div style="color: red;">' . array_shift($errors) . '</div><hr>';
 	}
@@ -35,11 +44,11 @@ if (isset($data['sign-in'])) {
 	}
 
 	if (empty($errors)) {
-		$accountCreated = ApiDB::createAccount($login, $password);
-		if ($accountCreated != false) {
-
+		$checkAuthorization = ApiDB::createAccount($login, $password);
+		if ($checkAuthorization != false) {
+			echo '<div style="color: green;">Регистрация прошла успешно</div><hr>';
 		} else {
-			
+			echo '<div style="color: red;">Пользователь с таким именем уже существует</div><hr>';
 		}
 	} else {
 		echo '<div style="color: red;">' . array_shift($errors) . '</div><hr>';

@@ -62,7 +62,7 @@ class ApiDB {
 	}
 
 	public static function stringRecordInTable($connection, $tableName, $fieldName, $stringValue) {
-		$result = mysqli_query($connection, "SELECT 0 FROM `" . $tableName . "` WHERE `" . $fieldName . "` = '" . $stringValue . "' LIMIT 1");
+		$result = mysqli_query($connection, "SELECT 1 FROM `" . $tableName . "` WHERE `" . $fieldName . "` = '" . $stringValue . "' LIMIT 1");
 		if (mysqli_fetch_assoc($result)) {
 			return true;
 		}
@@ -73,7 +73,7 @@ class ApiDB {
 		if (self::stringRecordInTable($connection, 'accounts', 'login', $login)) {
 			return false;
 		}
-		mysqli_query($connection, "INSERT INTO `accounts` (`login`, `password`) VALUES ('" . $login . "', '" . $password . "')");
+		mysqli_query($connection, "INSERT INTO `accounts` (`login`, `password`) VALUES ('" . $login . "', '" . password_hash($password, PASSWORD_DEFAULT) . "')");
 		return true;
 	}
 
@@ -82,6 +82,17 @@ class ApiDB {
 		$result = self::addAccountInTable($connection, $login, $password);
 		self::closeConnection($connection);
 		return $result;
+	}
+
+	public static function authorization($login, $password) {
+		$connection = self::connectTo('training_db');
+		$result = mysqli_query($connection, "SELECT `password` FROM `accounts` WHERE `login` = '" . $login . "'");
+		self::closeConnection($connection);
+		$data = mysqli_fetch_assoc($result);
+		if ($data == false) {
+			return false;
+		}
+		return password_verify($password, $data['password']);
 	}
 }
 ?>
