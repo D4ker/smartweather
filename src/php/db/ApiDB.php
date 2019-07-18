@@ -61,12 +61,27 @@ class ApiDB {
 		}
 	}
 
-	public static function createAccount($connection, $login, $password) {
-		$result = mysqli_query($connection, "INSERT INTO `accounts` (`login`, `password`) VALUES ('" . $login . "', '" . $password . "')");
-		if ($result == false) {
-			echo 'Failed to create account!<br>';
-			exit();
+	public static function stringRecordInTable($connection, $tableName, $fieldName, $stringValue) {
+		$result = mysqli_query($connection, "SELECT 0 FROM `" . $tableName . "` WHERE `" . $fieldName . "` = '" . $stringValue . "' LIMIT 1");
+		if (mysqli_fetch_assoc($result)) {
+			return true;
 		}
+		return false;
+	}
+
+	public static function addAccountInTable($connection, $login, $password) {
+		if (self::stringRecordInTable($connection, 'accounts', 'login', $login)) {
+			return false;
+		}
+		mysqli_query($connection, "INSERT INTO `accounts` (`login`, `password`) VALUES ('" . $login . "', '" . $password . "')");
+		return true;
+	}
+
+	public static function createAccount($login, $password) {
+		$connection = self::connectTo('training_db');
+		$result = self::addAccountInTable($connection, $login, $password);
+		self::closeConnection($connection);
+		return $result;
 	}
 }
 ?>

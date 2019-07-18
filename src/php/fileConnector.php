@@ -5,7 +5,7 @@ require_once('init/time.php');
 //require_once('grabber/GismeteoData.php');
 //require_once('grabber/WeatherData.php');
 
-//require_once('learning/accounts/createAccount.php');
+//require_once('training/accounts/loginCreateAccount.php');
 
 //require_once('db/cron/import/importTodayData.php');
 //require_once('db/cron/import/importYesterdayGismeteoData.php');
