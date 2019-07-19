@@ -86,13 +86,14 @@ class ApiDB {
 
 	public static function authorization($login, $password) {
 		$connection = self::connectTo('training_db');
-		$result = mysqli_query($connection, "SELECT `password` FROM `accounts` WHERE `login` = '" . $login . "'");
+		$result = mysqli_query($connection, "SELECT * FROM `accounts` WHERE `login` = '" . $login . "'");
 		self::closeConnection($connection);
 		$data = mysqli_fetch_assoc($result);
-		if ($data == false) {
+		if (password_verify($password, $data['password']) == false) {
 			return false;
 		}
-		return password_verify($password, $data['password']);
+		unset($data['password']);
+		return $data;
 	}
 }
 ?>

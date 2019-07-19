@@ -5,53 +5,55 @@ $data = $_POST;
 
 $errors = array();
 $password = $data['password'];
-if (isset($data['sign-in'])) {
-	$login = $data['login-in'];
-	if ($login == '') {
-		$errors[] = 'Введите логин';
-	}
-
-	if ($password == '') {
-		$errors[] = 'Введите пароль';
-	}
-
-	if (empty($errors)) {
-		$checkAuthorization = ApiDB::authorization($login, $password);
-		if ($checkAuthorization != false) {
-			echo '<div style="color: green;">Авторизация прошла успешно</div><hr>';
-		} else {
-			echo '<div style="color: red;">Логин или пароль введены неверно</div><hr>';
+if (!isset($_SESSION['logged_user'])) {
+	if (isset($data['sign-in'])) {
+		$login = $data['login-in'];
+		if ($login == '') {
+			$errors[] = 'Введите логин';
 		}
-	} else {
-		echo '<div style="color: red;">' . array_shift($errors) . '</div><hr>';
-	}
-} else if (isset($data['sign-up'])) {
-	$login = $data['login-up'];
-	if ($login == '') {
-		$errors[] = 'Введите логин';
-	}
 
-	if (strpos($login, ' ') !== false) {
-		$errors[] = 'Логин не допускает использование пробельных символов';
-	}
-
-	if ($password == '') {
-		$errors[] = 'Введите пароль';
-	}
-
-	if ($data['password-confirm'] != $password) {
-		$errors[] = 'Пароли не совпадают';
-	}
-
-	if (empty($errors)) {
-		$checkAuthorization = ApiDB::createAccount($login, $password);
-		if ($checkAuthorization != false) {
-			echo '<div style="color: green;">Регистрация прошла успешно</div><hr>';
-		} else {
-			echo '<div style="color: red;">Пользователь с таким именем уже существует</div><hr>';
+		if ($password == '') {
+			$errors[] = 'Введите пароль';
 		}
-	} else {
-		echo '<div style="color: red;">' . array_shift($errors) . '</div><hr>';
+
+		if (empty($errors)) {
+			$user = ApiDB::authorization($login, $password);
+			if ($user != false) {
+				$_SESSION['logged_user'] = $user;
+			} else {
+				echo '<div style="color: red;">Логин или пароль введены неверно</div><hr>';
+			}
+		} else {
+			echo '<div style="color: red;">' . array_shift($errors) . '</div><hr>';
+		}
+	} else if (isset($data['sign-up'])) {
+		$login = $data['login-up'];
+		if ($login == '') {
+			$errors[] = 'Введите логин';
+		}
+
+		if (strpos($login, ' ') !== false) {
+			$errors[] = 'Логин не допускает использование пробельных символов';
+		}
+
+		if ($password == '') {
+			$errors[] = 'Введите пароль';
+		}
+
+		if ($data['password-confirm'] != $password) {
+			$errors[] = 'Пароли не совпадают';
+		}
+
+		if (empty($errors)) {
+			$checkAuthorization = ApiDB::createAccount($login, $password);
+			if ($checkAuthorization != false) {
+				echo '<div style="color: green;">Регистрация прошла успешно</div><hr>';
+			} else {
+				echo '<div style="color: red;">Пользователь с таким именем уже существует</div><hr>';
+			}
+		} else {
+			echo '<div style="color: red;">' . array_shift($errors) . '</div><hr>';
+		}
 	}
 }
 ?>

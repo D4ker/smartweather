@@ -1,3 +1,7 @@
+<?php
+	require_once('src/php/fileConnector.php');
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,16 +11,17 @@
 	<link rel="stylesheet" href="src/css/style.css" type="text/css">
 </head>
 <body>
-	<?php
-	require_once('src/php/fileConnector.php');
-	?>
-
 	<div class="container-header">
 		<div class="container-title">
 			<a class="title-field" href="">Smart Weather</a>
 		</div>
 		<div class="container-panel">
-			<a class="panel-button" href="/src/php/pages/signInUp.php">Вход/Регистрация</a>
+			<?php if (!isset($_SESSION['logged_user'])) : ?>
+				<a class="panel-button" href="/src/php/pages/signInUp.php">Вход/Регистрация</a>
+			<?php else : ?>
+				<a class="panel-button" href="/src/php/pages/trainingSettings.php">Обучение</a>
+				<a class="panel-button" href="/src/php/pages/logout.php">Выйти</a>
+			<?php endif; ?>
 		</div>
 	</div>
 	<div class="container">
