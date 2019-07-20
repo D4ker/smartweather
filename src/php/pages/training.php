@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . '/../init/session.php');
-require_once(__DIR__ . '/../db/ApiDB.php');
+require_once(__DIR__ . '/../db/cron/export/exportTrainingData.php');
 ?>
 
 <!DOCTYPE html>
@@ -56,9 +56,7 @@ require_once(__DIR__ . '/../db/ApiDB.php');
 	<script src="../../js/training.js"></script>
 
 	<script>
-		updateSelections(<?php echo $arrayOfCities; ?>, <?php echo $arrayOfClothes; ?>);
-		updateTables(<?php echo $baseData; ?>, <?php echo $userData; ?>);
-		updateCategories(<?php echo $categories; ?>);
+		updateData(<?php echo $json; ?>);
 	</script>
 </body>
 </html>

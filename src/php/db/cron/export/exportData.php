@@ -19,19 +19,19 @@ $cityID = $cityInfo['id'];
 
 // Gismeteo Today
 $tableName = 'gismeteo_today_data';
-$gismeteoTodayData = ApiDB::getDataFromTable($connection, $tableName, $cityID);
+$gismeteoTodayData = ApiDB::getDataTableByFieldValue($connection, $tableName, 'city_id' $cityID);
 
 // Gismeteo Yesterday
 $tableName = 'gismeteo_yesterday_data';
-$gismeteoYesterdayData = ApiDB::getDataFromTable($connection, $tableName, $cityID);
+$gismeteoYesterdayData = ApiDB::getDataTableByFieldValue($connection, $tableName, 'city_id', $cityID);
 
 // Weather Today
 $tableName = 'weather_today_data';
-$weatherTodayData = ApiDB::getDataFromTable($connection, $tableName, $cityID);
+$weatherTodayData = ApiDB::getDataTableByFieldValue($connection, $tableName, 'city_id', $cityID);
 
 // Weather Yesterday
 $tableName = 'weather_yesterday_data';
-$weatherYesterdayData = ApiDB::getDataFromTable($connection, $tableName, $cityID);
+$weatherYesterdayData = ApiDB::getDataTableByFieldValue($connection, $tableName, 'city_id', $cityID);
 
 $data = array(
 	'gismeteo_today_data' => $gismeteoTodayData,

@@ -61,3 +61,17 @@ function updateTables(baseData, userData) {
 function updateCategories(categories) {
 	
 };
+
+function updateData(data) {
+	/*
+	'cities' => $gismeteoTodayData,
+	'user_clothes' => $gismeteoYesterdayData,
+	'base_data' => $weatherTodayData,
+	'user_data' => $weatherYesterdayData,
+	'clothes_category' => $categories
+	*/
+		/*updateSelections(arrayOfCities, arrayOfClothes);
+		updateTables(baseData, userData);
+		updateCategories(categories);*/
+	console.log(data);
+}

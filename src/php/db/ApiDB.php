@@ -44,8 +44,8 @@ class ApiDB {
 		}
 	}
 
-	public static function getDataFromTable($connection, $tableName, $cityID) {
-		$result = mysqli_query($connection, "SELECT * FROM `" . $tableName . "` WHERE `city_id` = " . $cityID);
+	public static function getDataTableByFieldValue($connection, $tableName, $field, $value) {
+		$result = mysqli_query($connection, "SELECT * FROM `" . $tableName . "` WHERE `". $field . "` = " . $value);
 		$data = array();
 		while (($record = mysqli_fetch_assoc($result)) == true) {
 			$data[] = $record;
@@ -54,7 +54,7 @@ class ApiDB {
 	}
 
 	public static function cutDataToAnotherTable($connection, $cutTableName, $insertTableName, $cityID) {
-		$data = self::getDataFromTable($connection, $cutTableName, $cityID);
+		$data = self::getDataTableByFieldValue($connection, $cutTableName, 'city_id', $cityID);
 		self::deleteOldData($connection, $cutTableName, $cityID);
 		for ($i = 0; $i < count($data); $i++) {
 			self::addRecordInTable($connection, $insertTableName, $cityID, $data[$i]['time'], $data[$i]['temperature'], $data[$i]['wind_value'], $data[$i]['wind_direction'], $data[$i]['humidity']);
@@ -93,6 +93,24 @@ class ApiDB {
 			return false;
 		}
 		unset($data['password']);
+		return $data;
+	}
+
+	public static function getFieldContents($connection, $tableName, $field) {
+		$result = mysqli_query($connection, "SELECT " . $field . " FROM `" . $tableName . "`");
+		$data = array();
+		while (($record = mysqli_fetch_assoc($result)) == true) {
+			$data[] = $record;
+		}
+		return $data;
+	}
+
+	public static function getTableData($connection, $tableName) {
+		$result = mysqli_query($connection, "SELECT * FROM `" . $tableName . "`");
+		$data = array();
+		while (($record = mysqli_fetch_assoc($result)) == true) {
+			$data[] = $record;
+		}
 		return $data;
 	}
 }
