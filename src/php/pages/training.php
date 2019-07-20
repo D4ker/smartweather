@@ -21,32 +21,20 @@ require_once(__DIR__ . '/../db/cron/export/exportTrainingData.php');
 		<div class="add-record">
 			<form action="/src/php/pages/training.php" method="POST">
 				<h2>Добавить запись в таблицу</h2>
-				<select name="city">
-					<option>Выберете город</option>
-					<div id="city">
-						
-					</div>
+				<select id="city" name="city">
+					
 				</select>
-				<select name="time">
-					<option>Выберете время</option>
-					<div id="time">
-						
-					</div>
+				<select id="time" name="time">
+					
 				</select>
 				<input type="text" name="temperature" placeholder="Введите температуру">
 				<input type="text" name="wind-value" placeholder="Введите скорость ветра">
-				<select name="wind-direction">
-					<option>Выберете направление ветра</option>
-					<div id="wind-direction">
-						
-					</div>
+				<select id="wind-direction" name="wind-direction">
+					
 				</select>
 				<input type="text" name="humidity" placeholder="Введите влажность">
-				<select name="clothes">
-					<option>Выберете одежду</option>
-					<div id="clothes">
-						
-					</div>
+				<select id="clothes" name="clothes">
+					
 				</select>
 				<button type="submit" name="add-record">Добавить</button>
 			</form>
