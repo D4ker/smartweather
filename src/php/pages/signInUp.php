@@ -12,6 +12,11 @@ require_once(__DIR__ . '/../training/accounts/loginCreateAccount.php');
 	<link rel="stylesheet" href="../../css/signInUp.css" type="text/css">
 </head>
 <body>
+	<div class="container-header">
+		<div class="container-panel">
+			<a class="panel-button" href="/">Вернуться на главную</a>
+		</div>
+	</div>
 	<div class="container">
 		<?php if (!isset($_SESSION['logged_user'])) : ?>
 			<div class="sign-in">
@@ -34,7 +39,6 @@ require_once(__DIR__ . '/../training/accounts/loginCreateAccount.php');
 		<?php else : ?>
 			<div class="go-back">
 				<p>Вы авторизованы как <?php echo $_SESSION['logged_user']['login'] ?>. Можете вернуться на главную страницу.</p>
-				<a class="back-button" href="/">На главную</a>
 			</div>
 		<?php endif; ?>
 	</div>

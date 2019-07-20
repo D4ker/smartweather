@@ -19,7 +19,7 @@
 			<?php if (!isset($_SESSION['logged_user'])) : ?>
 				<a class="panel-button" href="/src/php/pages/signInUp.php">Вход/Регистрация</a>
 			<?php else : ?>
-				<a class="panel-button" href="/src/php/pages/trainingSettings.php">Обучение</a>
+				<a class="panel-button" href="/src/php/pages/training.php">Обучение</a>
 				<a class="panel-button" href="/src/php/pages/logout.php">Выйти</a>
 			<?php endif; ?>
 		</div>
