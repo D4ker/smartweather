@@ -18,39 +18,47 @@ require_once(__DIR__ . '/../db/ApiDB.php');
 		</div>
 	</div>
 	<div class="container">
-		<div class="new-record">
+		<div class="add-record">
 			<form action="/src/php/pages/training.php" method="POST">
 				<h2>Добавить запись в таблицу</h2>
 				<select name="city">
 					<option>Выберете город</option>
-					<div class="city">
+					<div id="city">
 						
 					</div>
 				</select>
 				<select name="time">
 					<option>Выберете время</option>
-					<div class="time">
+					<div id="time">
 						
 					</div>
 				</select>
 				<input type="text" name="temperature" placeholder="Введите температуру">
-				<input type="text" name="temperature" placeholder="Введите скорость ветра">
-				<select name="wind_direction">
+				<input type="text" name="wind-value" placeholder="Введите скорость ветра">
+				<select name="wind-direction">
 					<option>Выберете направление ветра</option>
-					<div class="wind_direction">
+					<div id="wind-direction">
 						
 					</div>
 				</select>
 				<input type="text" name="humidity" placeholder="Введите влажность">
 				<select name="clothes">
 					<option>Выберете одежду</option>
-					<div class="clothes">
+					<div id="clothes">
 						
 					</div>
 				</select>
-				<button type="submit" name="sign-in">Добавить</button>
+				<button type="submit" name="add-record">Добавить</button>
 			</form>
 		</div>
 	</div>
+
+	<script src="../../js/training.js"></script>
+
+	<script>
+		updateSelections(<?php echo $arrayOfCities; ?>, <?php echo $arrayOfClothes; ?>);
+		updateTables(<?php echo $baseData; ?>, <?php echo $userData; ?>);
+		updateCategories(<?php echo $categories; ?>);
+	</script>
 </body>
 </html>
