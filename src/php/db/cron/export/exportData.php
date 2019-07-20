@@ -19,7 +19,7 @@ $cityID = $cityInfo['id'];
 
 // Gismeteo Today
 $tableName = 'gismeteo_today_data';
-$gismeteoTodayData = ApiDB::getDataTableByFieldValue($connection, $tableName, 'city_id' $cityID);
+$gismeteoTodayData = ApiDB::getDataTableByFieldValue($connection, $tableName, 'city_id', $cityID);
 
 // Gismeteo Yesterday
 $tableName = 'gismeteo_yesterday_data';
