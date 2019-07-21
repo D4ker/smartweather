@@ -27,11 +27,11 @@ function printData(numberOfDay) {
 };
 
 function getDataWithTags(data) {
-	stringArrayOfWindDirection = [
+	let stringArrayOfWindDirection = [
 		'С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 
 		'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ', 'Штиль'
 	];
-	dataWithTags = '';
+	let dataWithTags = '';
 	for (i = 0; i < data.length; i++) {
 		dataWithTags += '<tr><td class="time">' + data[i]['time'] + 
 		':00</td><td class="temperature">' + data[i]['temperature'] + 
