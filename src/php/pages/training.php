@@ -41,7 +41,7 @@ require_once(__DIR__ . '/../db/cron/export/exportTrainingData.php');
 							</select>
 						</div>
 						<div class="list">
-							<p class="list-name">Tемпература,&nbsp;°C</p>
+							<p class="list-name">Tемпература, °C</p>
 							<input type="text" name="temperature" placeholder="Введите температуру">
 						</div>
 						<div class="list">
@@ -75,7 +75,7 @@ require_once(__DIR__ . '/../db/cron/export/exportTrainingData.php');
 					<tr>
 						<th>Город</th>
 						<th>Время</th>
-						<th>Tемпература,&nbsp;°C</th>
+						<th>Tемпература, °C</th>
 						<th>Ветер, м/с</th>
 						<th>Направление ветра</th>
 						<th>Влажность, %</th>

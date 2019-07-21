@@ -32,7 +32,7 @@ function getDataWithTags(data) {
 		'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ', 'Штиль'
 	];
 	let dataWithTags = '';
-	for (i = 0; i < data.length; i++) {
+	for (let i = 0; i < data.length; i++) {
 		dataWithTags += '<tr><td class="time">' + data[i]['time'] + 
 		':00</td><td class="temperature">' + data[i]['temperature'] + 
 		'</td><td class="wind-value">' + data[i]['wind_value'] + 

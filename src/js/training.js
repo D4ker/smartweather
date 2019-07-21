@@ -1,13 +1,15 @@
 var baseDataWithTags;
 var userDataWithTags;
 
+var userClothesWithTags;
+
 function setContent(id, dataWithTags) {
 	document.getElementById(id).innerHTML = dataWithTags;
 };
 
 function setSelectionsOfCities(arrayOfCities) {
 	let selectionsWithTags = '<option>Выберете город</option>';
-	for (i = 0; i < arrayOfCities.length; i++) {
+	for (let i = 0; i < arrayOfCities.length; i++) {
 		let currentRecord = arrayOfCities[i];
 		selectionsWithTags += '<option value="' + currentRecord['id'] + '">' + currentRecord['name_ru'] + '</option>';
 	}
@@ -16,7 +18,7 @@ function setSelectionsOfCities(arrayOfCities) {
 
 function setSelectionsOfTimes() {
 	let selectionsWithTags = '<option>Выберете время</option>';
-	for (i = 0; i < 24; i++) {
+	for (let i = 0; i < 24; i++) {
 		selectionsWithTags += '<option value="' + i + '">' + i + ':00</option>';
 	}
 	setContent('time', selectionsWithTags);
@@ -28,7 +30,7 @@ function setSelectionsOfWindDirections() {
 		'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ', 'Штиль'
 	];
 	let selectionsWithTags = '<option>Выберете направление ветра</option>';
-	for (i = 0; i < stringArrayOfWindDirection.length; i++) {
+	for (let i = 0; i < stringArrayOfWindDirection.length; i++) {
 		selectionsWithTags += '<option value="' + i + '">' + stringArrayOfWindDirection[i] + '</option>';
 	}
 	setContent('wind-direction', selectionsWithTags);
@@ -36,72 +38,105 @@ function setSelectionsOfWindDirections() {
 
 function setSelectionsOfClothes(arrayOfcategories, arrayOfClothes) {
 	let optgroupsWithTags = '<option>Выберете одежду</option>';
-	for (i = 0; i < arrayOfcategories.length; i++) {
+	for (let i = 0; i < arrayOfcategories.length; i++) {
 		let currentRecord = arrayOfcategories[i];
 		optgroupsWithTags += '<optgroup id="category-' + currentRecord['id'] + '" label="' + currentRecord['name'] + '"></optgroup>';
 	}
 	setContent('clothes', optgroupsWithTags);
 
-	let optionsWithTags = '';
-	for (i = 0; i < arrayOfClothes.length; i++) {
+	for (let i = 0; i < arrayOfClothes.length; i++) {
 		let currentRecord = arrayOfClothes[i];
-		optionsWithTags = '<option value="' + currentRecord['clothes_id'] + '">' + currentRecord['name'] + '</option>';
+		let optionsWithTags = '<option value="' + currentRecord['clothes_id'] + '">' + currentRecord['clothes_name'] + '</option>';
 		setContent('category-' + currentRecord['category_id'], optionsWithTags);
 	}
 };
 
 function updateSelections(arrayOfCities, arrayOfcategories, arrayOfClothes) {
-	console.log(arrayOfCities);
-	console.log(arrayOfClothes);
-
 	setSelectionsOfCities(arrayOfCities);
 	setSelectionsOfTimes();
 	setSelectionsOfWindDirections();
 	setSelectionsOfClothes(arrayOfcategories, arrayOfClothes);
 };
 
-function getDataWithTags(data) {
+function printTable(tableNum) {
+	let tableHead;
+	let tableData;
+	if (tableNum === 0) {
+		tableHead = '<tr><th>Город</th>' + 
+		'<th>Время</th>' + 
+		'<th>Tемпература, °C</th>' + 
+		'<th>Ветер, м/с</th>' + 
+		'<th>Направление ветра</th>' + 
+		'<th>Влажность, %</th>' + 
+		'<th>Одежда</th></tr>';
+		tableData = userDataWithTags;
+	} else if (tableNum === 1) {
+		tableHead = '<tr><th>Категория</th>' + 
+		'<th>Одежда</th></tr>';
+		tableData = userClothesWithTags;
+	}
+	setContent('data-head', tableHead);
+	setContent('data', tableData);
+};
+
+function getFieldValueByFieldValue(array, soughtOutField, searchingField, value) {
+	for (let i = 0; i < array.length; i++) {
+		let currentRecord = array[i];
+		if (currentRecord[searchingField] === value) {
+			return currentRecord[soughtOutField];
+		}
+	}
+	return '';
+}
+
+function getUserDataWithTags(data, cities, clothes) {
 	let stringArrayOfWindDirection = [
 		'С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 
 		'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ', 'Штиль'
 	];
 	let dataWithTags = '';
-	for (i = 0; i < data.length; i++) {
-		dataWithTags += '<tr><td class="city">' + data[i]['time'] + 
-		'</td><td class="time">' + data[i]['time'] + 
-		':00</td><td class="temperature">' + data[i]['temperature'] + 
-		'</td><td class="wind-value">' + data[i]['wind_value'] + 
-		'</td><td class="wind-direction">' + stringArrayOfWindDirection[data[i]['wind_direction']] + 
-		'</td><td class="humidity">' + data[i]['humidity'] + '</td></tr>';
+	for (let i = 0; i < data.length; i++) {
+		let city = getFieldValueByFieldValue(cities, 'name_ru', 'id', data[i]['city_id']);
+		if (city === null) city = '';
+
+		let time = data[i]['time'];
+		time = (time === null) ? '' : time + ':00';
+
+		let windValue = data[i]['wind_value'];
+		if (windValue === null) windValue = '';
+
+		let windDirection = stringArrayOfWindDirection[data[i]['wind_direction']];
+		if (windDirection === undefined) windDirection = '';
+
+		let humidity = data[i]['humidity'];
+		if (humidity === null) humidity = '';
+
+		dataWithTags += '<tr><td class="city">' + city + 
+		'</td><td class="time">' + time + 
+		'</td><td class="temperature">' + data[i]['temperature'] + 
+		'</td><td class="wind-value">' + windValue + 
+		'</td><td class="wind-direction">' + windDirection + 
+		'</td><td class="humidity">' + humidity + 
+		'</td><td class="user-clothes">' + 
+		getFieldValueByFieldValue(clothes, 'clothes_name', 'clothes_id', data[i]['clothes_id']) + '</td></tr>';
 	}
 	return dataWithTags;
 };
 
-function printTable(tableNum) {
-	let tableHead;
-	if (tableNum === 0) {
-		tableHead = '<tr><th>Город</th>' + 
-		'<th>Время</th>' + 
-		'<th>Tемпература,&nbsp;°C</th>' + 
-		'<th>Ветер, м/с</th>' + 
-		'<th>Направление ветра</th>' + 
-		'<th>Влажность, %</th>' + 
-		'<th>Одежда</th></tr>';
-	} else if (tableNum === 1) {
-		tableHead = '<tr><th>Категория</th>' + 
-		'<th>Одежда</th></tr>';
+function getUserClothesWithTags(categories, clothes) {
+	let dataWithTags = '';
+	for (let i = 0; i < clothes.length; i++) {
+		dataWithTags += '<tr><td class="category">' + 
+		getFieldValueByFieldValue(categories, 'name', 'id', clothes[i]['category_id']) + 
+		'</td><td class="user-clothes">' + clothes[i]['clothes_name'] + '</td></tr>';
 	}
-	setContent('data-head', tableHead);
-
+	return dataWithTags;
 };
 
-function updateTables(baseData, userData) {
-	//baseData = getDataWithTags();
-	//userData = getDataWithTags();
-};
-
-function updateCategories(arrayOfcategories) {
-	
+function updateTables(baseData, userData, clothes, cities, categories) {
+	//baseData = getBaseDataWithTags(baseData);
+	userDataWithTags = getUserDataWithTags(userData, cities, clothes);
+	userClothesWithTags = getUserClothesWithTags(categories, clothes);
 };
 
 function updateData(data) {
@@ -113,6 +148,5 @@ function updateData(data) {
 	let categories = data['clothes_category'];
 
 	updateSelections(cities, categories, clothes);
-	updateTables(baseData, userData);
-	updateCategories(categories);
+	updateTables(baseData, userData, clothes, cities, categories);
 }
