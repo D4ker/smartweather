@@ -51,11 +51,22 @@ function setSelectionsOfClothes(arrayOfcategories, arrayOfClothes) {
 	}
 };
 
+function setSelectionsOfCategories(arrayOfcategories) {
+	let optionsWithTags = '<option>Выберете категорию</option>';
+	for (let i = 0; i < arrayOfcategories.length; i++) {
+		let currentRecord = arrayOfcategories[i];
+		optionsWithTags += '<option value="' + currentRecord['id'] + '">' + currentRecord['name'] + '</option>';
+	}
+	setContent('category', optionsWithTags);
+};
+
 function updateSelections(arrayOfCities, arrayOfcategories, arrayOfClothes) {
 	setSelectionsOfCities(arrayOfCities);
 	setSelectionsOfTimes();
 	setSelectionsOfWindDirections();
 	setSelectionsOfClothes(arrayOfcategories, arrayOfClothes);
+
+	setSelectionsOfCategories(arrayOfcategories);
 };
 
 function printTable(tableNum) {
@@ -87,7 +98,7 @@ function getFieldValueByFieldValue(array, soughtOutField, searchingField, value)
 		}
 	}
 	return '';
-}
+};
 
 function getUserDataWithTags(data, cities, clothes) {
 	let stringArrayOfWindDirection = [
@@ -149,4 +160,6 @@ function updateData(data) {
 
 	updateSelections(cities, categories, clothes);
 	updateTables(baseData, userData, clothes, cities, categories);
-}
+
+	printTable(0);
+};
