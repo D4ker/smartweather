@@ -113,5 +113,19 @@ class ApiDB {
 		}
 		return $data;
 	}
+
+	public static function addRecordInTableUserTraining($connection, $userID, $cityID, $time, $temperature, $windValue, $windDirection, $humidity, $clothesID) {
+		$result = mysqli_query($connection, "INSERT INTO `user_data` (`user_id`, `city_id`, `time`, `temperature`, `wind_value`, `wind_direction`, `humidity`, `clothes_id`) VALUES (" . $userID . ", " . $cityID . ", " . $time . ", " . $temperature . ", " . $windValue . ", " . $windDirection . ", " . $humidity . ", " . $clothesID . ")");
+		if ($result == false) {
+			echo '<div style="color: green;">Данные успешно добавлены в таблицу "Одежда"</div><hr>';
+		}
+	}
+
+	public static function addRecordInTableUserClothes($connection, $userID, $clothesName, $categoryID) {
+		$result = mysqli_query($connection, "INSERT INTO `user_clothes` (`user_id`, `clothes_name`, `category_id`) VALUES (" . $userID . ", '" . $clothesName . "', " . $categoryID . ")");
+		if ($result == false) {
+			echo '<div style="color: green;">Данные успешно добавлены в таблицу "Одежда"</div><hr>';
+		}
+	}
 }
 ?>

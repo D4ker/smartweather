@@ -110,6 +110,10 @@ button {
 	outline: none;
 }
 
+td, th {
+	border-bottom: 1px solid #6EADEE;
+}
+
 .table-button {
 	font-size: 14px;
 	padding: 10px 24px;
